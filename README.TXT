@@ -4,7 +4,7 @@ Informe ao usuário (alguém que não sabe nada sobre este projeto!) tudo que
 ele/ela precisa saber. Os comentários devem incluir, pelo menos:
 ------------------------------------------------------------------------
 
-TÍTULO DO PROJETO:
+TÍTULO DO PROJETO: Blackjack
 OBJETIVO DO PROJETO:
 VERSÃO ou DATA:
 COMO INICIAR O PROJETO:
