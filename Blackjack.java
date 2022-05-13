@@ -8,6 +8,10 @@ import java.util.Random;
  */
 public class Blackjack
 {
+    public static int gerarCarta(Random r) {
+        return 1 + r.nextInt(13);
+    }
+    
     public static void main(String[] args) {
         Random r;
         int c1, c2;
@@ -15,11 +19,11 @@ public class Blackjack
         
         r = new Random();
         
-        c1 = 1 + r.nextInt(13);
-        c2 = 1 + r.nextInt(13);
+        c1 = gerarCarta(r);
+        c2 = gerarCarta(r);
         
-        j1 = 1 + r.nextInt(13);
-        j2 = 1 + r.nextInt(13);
+        j1 = gerarCarta(r);
+        j2 = gerarCarta(r);
         
         System.out.printf("COMPUTADOR%n");
         System.out.printf("Carta 1: %d%n", c1);
