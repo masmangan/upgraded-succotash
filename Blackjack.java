@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.util.Random;
 
 /**
@@ -10,7 +9,6 @@ import java.util.Random;
 public class Blackjack
 {
     public static void main(String[] args) {
-        Scanner sc;
         Random r;
         int c1, c2;
         
