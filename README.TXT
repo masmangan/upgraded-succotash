@@ -6,7 +6,7 @@ ele/ela precisa saber. Os comentários devem incluir, pelo menos:
 
 TÍTULO DO PROJETO: Blackjack
 OBJETIVO DO PROJETO:
-VERSÃO ou DATA:
+VERSÃO ou DATA: 2022-05-16
 COMO INICIAR O PROJETO:
 AUTORES:
 INSTRUÇÕES PARA O USUÁRIO:
