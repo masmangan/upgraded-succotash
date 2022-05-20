@@ -47,6 +47,7 @@ public class Blackjack
         Random r;
         int c1, c2, c3;
         int j1, j2, j3;
+        int tc, tj;
         String resposta;
         boolean hitme;
 
@@ -80,18 +81,39 @@ public class Blackjack
         else
             j3 = 0;
 
+        tc = somarCartas(c1, c2, c3);
+        tj = somarCartas(j1, j2, j3);
+
         System.out.printf("COMPUTADOR%n");
         System.out.printf("Carta 1: %s%n", face(c1));
         System.out.printf("Carta 2: %s%n", face(c2));
         System.out.printf("Carta 3: %s%n", face(c3));
-        System.out.printf("Total  : %d%n", somarCartas(c1, c2, c3));
+        System.out.printf("Total  : %d%n", tc);
 
         System.out.printf("HUMANO%n");
         System.out.printf("Carta 1: %s%n", face(j1));
         System.out.printf("Carta 2: %s%n", face(j2));
         if (hitme)
             System.out.printf("Carta 3: %s%n", face(j3));
-        System.out.printf("Total  : %d%n", somarCartas(j1, j2, j3));
+        System.out.printf("Total  : %d%n", tj);
+
+        if (tj > 21) {
+            System.out.println("Perdeu! (Excedeu 21)");
+        } else {
+            if (tc > 21) {
+                System.out.println("Ganhou! (Oponente excedeu 21)");
+            } else {
+                if (tj > tc) {
+                    System.out.println("Ganhou! (Mais perto de 21)");                    
+                } else {
+                    if (tj < tc) {
+                        System.out.println("Perdeu! (Oponente mais perto de 21)");
+                    } else {
+                        System.out.println("Empate! (Mesmo valor)");                    
+                    }
+                }
+            }
+        }
 
         sc.close();
     }
