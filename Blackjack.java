@@ -43,56 +43,103 @@ public class Blackjack
     }
 
     public static void main(String[] args) {
-        Scanner sc;
-        Random r;
-        int c1, c2, c3;
-        int j1, j2, j3;
-        String resposta;
-        boolean hitme;
+        boolean continuar;
+        int pc = 0;
+        int pj = 0;
+        int pe = 0;
+        while(continuar = true){
+            Scanner sc;
+            Random r;
+            int c1, c2, c3;
+            int j1, j2, j3;
+            int tc, tj;
 
-        sc = new Scanner(System.in);
-        r = new Random();
+            String resposta;
+            boolean hitme;
 
-        c1 = gerarCarta(r);
-        c2 = gerarCarta(r);
-        c3 = gerarCarta(r);
+            sc = new Scanner(System.in);
+            r = new Random();
 
-        j1 = gerarCarta(r);
-        j2 = gerarCarta(r);
+            c1 = gerarCarta(r);
+            c2 = gerarCarta(r);
+            c3 = gerarCarta(r);
 
-        System.out.printf("COMPUTADOR%n");
-        System.out.printf("Carta 1: %s%n", face(c1));
+            j1 = gerarCarta(r);
+            j2 = gerarCarta(r);
 
-        System.out.printf("HUMANO%n");
-        System.out.printf("Carta 1: %s%n", face(j1));
-        System.out.printf("Carta 2: %s%n", face(j2));
+        
+            System.out.printf("COMPUTADOR%n");
+            System.out.printf("Carta 1: %s%n", face(c1));
 
-        System.out.printf("%nDeseja uma terceira carta? (sim/NÃO)%n");
-        resposta = sc.nextLine();
+            System.out.printf("HUMANO%n");
+            System.out.printf("Carta 1: %s%n", face(j1));
+            System.out.printf("Carta 2: %s%n", face(j2));
 
-        if ("sim".equalsIgnoreCase(resposta))
-            hitme = true;
-        else
-            hitme = false;
+            System.out.printf("%nDeseja uma terceira carta? (sim/NÃO)%n");
+            resposta = sc.nextLine();
 
-        if (hitme)
-            j3 = gerarCarta(r);
-        else
-            j3 = 0;
+            if ("sim".equalsIgnoreCase(resposta))
+                hitme = true;
+            else
+                hitme = false;
 
-        System.out.printf("COMPUTADOR%n");
-        System.out.printf("Carta 1: %s%n", face(c1));
-        System.out.printf("Carta 2: %s%n", face(c2));
-        System.out.printf("Carta 3: %s%n", face(c3));
-        System.out.printf("Total  : %d%n", somarCartas(c1, c2, c3));
+            if (hitme)
+                j3 = gerarCarta(r);
+            else
+                j3 = 0;
 
-        System.out.printf("HUMANO%n");
-        System.out.printf("Carta 1: %s%n", face(j1));
-        System.out.printf("Carta 2: %s%n", face(j2));
-        if (hitme)
-            System.out.printf("Carta 3: %s%n", face(j3));
-        System.out.printf("Total  : %d%n", somarCartas(j1, j2, j3));
+            tc = somarCartas(c1, c2, c3);
+            tj = somarCartas(j1, j2, j3);
 
-        sc.close();
+            System.out.printf("COMPUTADOR%n");
+            System.out.printf("Carta 1: %s%n", face(c1));
+            System.out.printf("Carta 2: %s%n", face(c2));
+            System.out.printf("Carta 3: %s%n", face(c3));
+            System.out.printf("Total  : %d%n", tc);
+
+            System.out.printf("HUMANO%n");
+            System.out.printf("Carta 1: %s%n", face(j1));
+            System.out.printf("Carta 2: %s%n", face(j2));
+            if (hitme)
+                System.out.printf("Carta 3: %s%n", face(j3));
+            System.out.printf("Total  : %d%n", tj);
+
+            if(tj > 21){
+                System.out.println("Perdeu! (Excedeu 21)");
+                pc++;
+            }else{
+                if(tc > 21){
+                    System.out.println("Ganhou! (Oponente excedeu 21)");
+                    pj++;
+                }else{
+                    if(tj > tc){
+                        System.out.println("Ganhou! (Mais perto de 21)");
+                        pj++;
+                    }else{
+                        if(tj < tc){
+                            System.out.println("Perdeu! (Oponente mais perto de 21)");  
+                            pc++;
+                        }else{
+                            System.out.println("Empate! (Mesmo valor)");
+                            pe++;
+                        }
+                    }
+                }
+            }
+            System.out.println("Você quer continuar? (Sim / Nao)");
+            String loop = sc.nextLine();
+            if ("sim".equalsIgnoreCase(loop)){
+                continuar = true;
+                continue;
+            }else if("nao".equalsIgnoreCase(loop)){
+                continuar = false;
+                break;
+            }
+        }
+        System.out.printf("Vitórias do Humano: %d%n",pj);
+        System.out.printf("Vitórias do Computador: %d%n",pc);
+        System.out.printf("Empates: %d%n",pe);
     }
 }
+
+      
