@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author marco.mangan@pucrs.br 
  * @version (um número da versão ou uma data)
  */
-public class Blackjack
+public class Main
 {
     public static int gerarCarta(Random r) {
         return 1 + r.nextInt(13);
@@ -45,24 +45,29 @@ public class Blackjack
     public static void main(String[] args) {
         Scanner sc;
         Random r;
-        int c1, c2, c3;
+        //int c1, c2, c3;
+        int[] c;
         int j1, j2, j3;
         int tc, tj;
         String resposta;
         boolean hitme;
 
+        char[] naipes = {'A','B','C', 'D'};
+      
         sc = new Scanner(System.in);
         r = new Random();
-
-        c1 = gerarCarta(r);
-        c2 = gerarCarta(r);
-        c3 = gerarCarta(r);
+        // alocação do vetor/arranjo
+        c = new int[4]; // c[0] não será utilizada
+        
+        c[1] = gerarCarta(r);
+        c[2] = gerarCarta(r);
+        c[3] = gerarCarta(r);
 
         j1 = gerarCarta(r);
         j2 = gerarCarta(r);
 
         System.out.printf("COMPUTADOR%n");
-        System.out.printf("Carta 1: %s%n", face(c1));
+        System.out.printf("Carta 1: %s%n", face(c[1]));
 
         System.out.printf("HUMANO%n");
         System.out.printf("Carta 1: %s%n", face(j1));
@@ -81,13 +86,13 @@ public class Blackjack
         else
             j3 = 0;
 
-        tc = somarCartas(c1, c2, c3);
+        tc = somarCartas(c[1], c[2], c[3]);
         tj = somarCartas(j1, j2, j3);
 
         System.out.printf("COMPUTADOR%n");
-        System.out.printf("Carta 1: %s%n", face(c1));
-        System.out.printf("Carta 2: %s%n", face(c2));
-        System.out.printf("Carta 3: %s%n", face(c3));
+        System.out.printf("Carta 1: %s%n", face(c[1]));
+        System.out.printf("Carta 2: %s%n", face(c[2]));
+        System.out.printf("Carta 3: %s%n", face(c[3]));
         System.out.printf("Total  : %d%n", tc);
 
         System.out.printf("HUMANO%n");
