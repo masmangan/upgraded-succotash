@@ -7,61 +7,73 @@ import java.util.Scanner;
  * @author marco.mangan@pucrs.br 
  * @version (um número da versão ou uma data)
  */
-public class Main
+public class Blackjack
 {
-    public static int gerarCarta(Random r) {
+    public static void mostrarCartasComputador(final int[] c, final int tc) {
+        System.out.printf("COMPUTADOR%n");
+        for (int i = 1; i < c.length; i++) {   
+            System.out.printf("Carta %d: %s%n", i, face(c[i]));
+        }
+
+        System.out.printf("Total  : %d%n", tc);
+    }
+    
+    
+    public static int gerarCarta(final Random r) {
         return 1 + r.nextInt(13);
     }
 
-    public static String face(int c) {
-        String resultado;
-        switch (c) {
-            case 1:
-                resultado = "A";
-                break;
-            case 11:
-                resultado =  "J";
-                break;
-            case 12:
-                resultado =  "Q";
-                break;
-            case 13:
-                resultado =  "K";               
-                break;
-            default:
-                resultado =  "" + c;
-        }
-        return resultado;
+    public static final String[] naipes = {"X", "♠", "♥", "♦", "♣"};
+
+    public static String gerarNaipe(final Random r) {
+        int n = r.nextInt(4);
+        return naipes[n];
+    }    
+       
+    public static final String[] faces = {"X", "A",  
+                            "2", "3", "4", 
+                            "5", "6", "7", 
+                            "8", "9", "10",
+                            "J", "Q", "K"
+                        };
+                        
+    public static String face(final int c) {
+        return faces[c];
     }
 
-    public static int valor(int c) {
+    public static int valor(final int c) {
         return (c > 10)? 10 : c;
     }
 
-    public static int somarCartas(int c1, int c2, int c3) {
+    public static int somarCartas(final int c1, final int c2, final int c3) {
         return valor(c1) + valor(c2) + valor(c3);
     }
 
+    public static int somarCartas(final int[] cartas) {
+        int s = 0;
+        for (int i = 1; i < cartas.length; i++) {
+            s += valor(cartas[i]);
+        }
+        return s;
+    }    
+    
     public static void main(String[] args) {
         Scanner sc;
         Random r;
-        //int c1, c2, c3;
         int[] c;
         int j1, j2, j3;
         int tc, tj;
         String resposta;
         boolean hitme;
-
-        char[] naipes = {'A','B','C', 'D'};
-      
+    
         sc = new Scanner(System.in);
         r = new Random();
         // alocação do vetor/arranjo
         c = new int[4]; // c[0] não será utilizada
         
-        c[1] = gerarCarta(r);
-        c[2] = gerarCarta(r);
-        c[3] = gerarCarta(r);
+        for (int i = 1; i < c.length; i++) {
+            c[i] = gerarCarta(r);
+        }
 
         j1 = gerarCarta(r);
         j2 = gerarCarta(r);
@@ -86,14 +98,10 @@ public class Main
         else
             j3 = 0;
 
-        tc = somarCartas(c[1], c[2], c[3]);
+        tc = somarCartas(c);
         tj = somarCartas(j1, j2, j3);
 
-        System.out.printf("COMPUTADOR%n");
-        System.out.printf("Carta 1: %s%n", face(c[1]));
-        System.out.printf("Carta 2: %s%n", face(c[2]));
-        System.out.printf("Carta 3: %s%n", face(c[3]));
-        System.out.printf("Total  : %d%n", tc);
+        mostrarCartasComputador(c, tc);
 
         System.out.printf("HUMANO%n");
         System.out.printf("Carta 1: %s%n", face(j1));
