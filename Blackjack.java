@@ -10,12 +10,12 @@ import java.util.Scanner;
 public class Blackjack
 {
     public static void mostrarCartas(final String participante,
-                                    final int[] c, final int tc) {
+                                    final int[] cs, final int tcs) {
         System.out.printf("%s%n", participante);
-        for (int i = 1; i < c.length; i++) {   
-            System.out.printf("Carta %d: %s%n", i, face(c[i]));
+        for (int i = 1; i < cs.length; i++) {   
+            System.out.printf("Carta %d: %s%n", i, face(cs[i]));
         }
-        System.out.printf("Total  : %d%n", tc);
+        System.out.printf("Total  : %d%n", tcs);
     }
     
     
