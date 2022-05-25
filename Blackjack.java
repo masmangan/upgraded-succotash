@@ -9,12 +9,12 @@ import java.util.Scanner;
  */
 public class Blackjack
 {
-    public static void mostrarCartasComputador(final int[] c, final int tc) {
-        System.out.printf("COMPUTADOR%n");
+    public static void mostrarCartas(final String participante,
+                                    final int[] c, final int tc) {
+        System.out.printf("%s%n", participante);
         for (int i = 1; i < c.length; i++) {   
             System.out.printf("Carta %d: %s%n", i, face(c[i]));
         }
-
         System.out.printf("Total  : %d%n", tc);
     }
     
@@ -45,10 +45,6 @@ public class Blackjack
         return (c > 10)? 10 : c;
     }
 
-    public static int somarCartas(final int c1, final int c2, final int c3) {
-        return valor(c1) + valor(c2) + valor(c3);
-    }
-
     public static int somarCartas(final int[] cartas) {
         int s = 0;
         for (int i = 1; i < cartas.length; i++) {
@@ -61,7 +57,7 @@ public class Blackjack
         Scanner sc;
         Random r;
         int[] c;
-        int j1, j2, j3;
+        int[] j;
         int tc, tj;
         String resposta;
         boolean hitme;
@@ -70,20 +66,22 @@ public class Blackjack
         r = new Random();
         // alocação do vetor/arranjo
         c = new int[4]; // c[0] não será utilizada
+        j = new int[3]; // j[0] não será utilizada
         
         for (int i = 1; i < c.length; i++) {
             c[i] = gerarCarta(r);
         }
 
-        j1 = gerarCarta(r);
-        j2 = gerarCarta(r);
+        for (int i = 1; i < j.length; i++) {
+            j[i] = gerarCarta(r);
+        }        
 
         System.out.printf("COMPUTADOR%n");
         System.out.printf("Carta 1: %s%n", face(c[1]));
 
         System.out.printf("HUMANO%n");
-        System.out.printf("Carta 1: %s%n", face(j1));
-        System.out.printf("Carta 2: %s%n", face(j2));
+        System.out.printf("Carta 1: %s%n", face(j[1]));
+        System.out.printf("Carta 2: %s%n", face(j[2]));
 
         System.out.printf("%nDeseja uma terceira carta? (sim/NÃO)%n");
         resposta = sc.nextLine();
@@ -93,22 +91,19 @@ public class Blackjack
         else
             hitme = false;
 
-        if (hitme)
-            j3 = gerarCarta(r);
-        else
-            j3 = 0;
+        if (hitme) {
+            int[] antigo = j;
+            j = new int[antigo.length + 1];
+            j[1] = antigo[1];
+            j[2] = antigo[2];
+            j[3] = gerarCarta(r);
+        } 
 
         tc = somarCartas(c);
-        tj = somarCartas(j1, j2, j3);
+        tj = somarCartas(j);
 
-        mostrarCartasComputador(c, tc);
-
-        System.out.printf("HUMANO%n");
-        System.out.printf("Carta 1: %s%n", face(j1));
-        System.out.printf("Carta 2: %s%n", face(j2));
-        if (hitme)
-            System.out.printf("Carta 3: %s%n", face(j3));
-        System.out.printf("Total  : %d%n", tj);
+        mostrarCartas("COMPUTADOR", c, tc);
+        mostrarCartas("HUMANO", j, tj);
 
         if (tj > 21) {
             System.out.println("Perdeu! (Excedeu 21)");
